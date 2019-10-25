@@ -6,7 +6,8 @@
             <name>APS-4-Semestre</name>
             <source-roots>
                 <root id="src.resources.dir"/>
-                <root id="src.dir" name="src"/>
+                <root id="src.libs.dir"/>
+                <root id="src.src.dir"/>
             </source-roots>
             <test-roots/>
         </data>
