@@ -6,8 +6,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
-import org.apache.log4j.Logger;
-import sun.util.logging.PlatformLogger;
 
 public class ConnectionFactory {
 
