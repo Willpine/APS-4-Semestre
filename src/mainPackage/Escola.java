@@ -1,58 +1,68 @@
 package mainPackage;
 
 public class Escola {
-    private int cod_esc;
-    private String nome_esc;
-    private float med_ain;
-    private float med_afi;
-    private float med_eme;
-    private float ideb;
+   
+    private int ID_ESC;
+    private int RANK_ESC;
+    private String NOME_ESC;
+    private float MED_INI;
+    private float MED_FIN;
+    private float MED_MED;
+    private float MED_IDEB;
 
-    public int getCod_esc() {
-        return cod_esc;
+    public int getID_ESC() {
+        return ID_ESC;
     }
 
-    public void setCod_esc(int cod_esc) {
-        this.cod_esc = cod_esc;
+    public void setID_ESC(int ID_ESC) {
+        this.ID_ESC = ID_ESC;
     }
 
-    public String getNome_esc() {
-        return nome_esc;
+    public int getRANK_ESC() {
+        return RANK_ESC;
     }
 
-    public void setNome_esc(String nome_esc) {
-        this.nome_esc = nome_esc;
+    public void setRANK_ESC(int RANK_ESC) {
+        this.RANK_ESC = RANK_ESC;
     }
 
-    public float getMed_ain() {
-        return med_ain;
+    public String getNOME_ESC() {
+        return NOME_ESC;
     }
 
-    public void setMed_ain(float med_ain) {
-        this.med_ain = med_ain;
+    public void setNOME_ESC(String NOME_ESC) {
+        this.NOME_ESC = NOME_ESC;
     }
 
-    public float getMed_afi() {
-        return med_afi;
+    public float getMED_INI() {
+        return MED_INI;
     }
 
-    public void setMed_afi(float med_afi) {
-        this.med_afi = med_afi;
+    public void setMED_INI(float MED_INI) {
+        this.MED_INI = MED_INI;
     }
 
-    public float getMed_eme() {
-        return med_eme;
+    public float getMED_FIN() {
+        return MED_FIN;
     }
 
-    public void setMed_eme(float med_eme) {
-        this.med_eme = med_eme;
+    public void setMED_FIN(float MED_FIN) {
+        this.MED_FIN = MED_FIN;
     }
 
-    public float getIdeb() {
-        return ideb;
+    public float getMED_MED() {
+        return MED_MED;
     }
 
-    public void setIdeb(float ideb) {
-        this.ideb = ideb;
+    public void setMED_MED(float MED_MED) {
+        this.MED_MED = MED_MED;
+    }
+
+    public float getMED_IDEB() {
+        return MED_IDEB;
+    }
+
+    public void setMED_IDEB(float MED_IDEB) {
+        this.MED_IDEB = MED_IDEB;
     }
 }

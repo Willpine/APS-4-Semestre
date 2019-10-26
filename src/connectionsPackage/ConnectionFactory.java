@@ -1,6 +1,6 @@
 package connectionsPackage;
 
-import com.mysql.jdbc.PreparedStatement;
+import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -9,12 +9,12 @@ import java.util.logging.Level;
 
 public class ConnectionFactory {
 
-    private final String DRIVER = "com.mysql.jdbc.Driver";
-    private final String URL = "jdbc:mysql://localhost:3306/testeschema";
-    private final String USER = "root";
-    private final String PASSWORD = "SOU@esperto10";
+    private static final String DRIVER = "com.mysql.jdbc.Driver";
+    private static final String URL = "jdbc:mysql://localhost:3306/testeschema";
+    private static final String USER = "root";
+    private static final String PASSWORD = "SOU@esperto10";
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
 
         try {
             Class.forName(DRIVER);
