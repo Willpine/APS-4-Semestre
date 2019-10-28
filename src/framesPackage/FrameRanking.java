@@ -3,19 +3,19 @@
 package framesPackage;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import mainPackage.ReadSheet;
 
 public class FrameRanking extends ReadSheet {
    
     //Constructor
     public FrameRanking(){
-        int rowNum,rowsToRead,celNum;
-        rowNum=0;rowsToRead=0;celNum=0;
         initComponents();
-        try{
-            readEverything(rowNum,rowsToRead,celNum,mainTable);
-        }catch(IOException e){
-            System.out.println(e);
+        try {
+            ReadSheet.readTableMedio(mainTable);
+        } catch (IOException ex) {
+            Logger.getLogger(FrameRanking.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
