@@ -15,6 +15,9 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
 
 import java.io.InputStream;
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.openxml4j.opc.PackageAccess;
+import org.apache.poi.xssf.eventusermodel.XLSX2CSV;
 
 public abstract class ReadSheet extends javax.swing.JFrame {
 
@@ -90,10 +93,14 @@ public abstract class ReadSheet extends javax.swing.JFrame {
             System.gc();
             if(stampa++ > 1000){System.out.println(".");stampa = 0;}else{System.out.println(".");}
             Thread.sleep(2000);
-            //directory = new File("./resources/IDEB/IDEB/Dados/Por Escolas/");//E aqui
+            //directory = new File("./resources/IDEB/IDEB/Dados/Por Escolas/");
             //listaDir = directory.list();
             //if(listaDir.length > 0){
-                File enMed = new File("./resources/IDEB/IDEB/Dados/Por Escolas/divulgacao_ensino_medio-escolas-2017.xlsx");//Aqui
+                File enMed = new File("./resources/IDEB/IDEB/Dados/Por Escolas/divulgacao_anos_finais-escolas-2017.xlsx");
+                OPCPackage p = OPCPackage.open(enMed.getPath(),PackageAccess.READ);
+                XLSX2CSV xls = new XLSX2CSV(p, System.out,3);
+                xls.process();p.close();
+                /*
                 FileInputStream enMedStream = new FileInputStream(enMed.getAbsolutePath());
                 XSSFWorkbook workbook = new XSSFWorkbook(enMedStream);
                 XSSFSheet sheet = workbook.getSheetAt(0);//Diferente aqui
@@ -101,11 +108,17 @@ public abstract class ReadSheet extends javax.swing.JFrame {
                     XSSFCell a1 = sheet.getRow(i).getCell(3);
                     XSSFCell a2 = sheet.getRow(i).getCell(4);
                     XSSFCell a3 = sheet.getRow(i).getCell(15);
-                    if(a3.getCellType().equals(NUMERIC))
+                    switch(a3.getCellType()){
+                        case NUMERIC:
                     System.out.println(a1.getNumericCellValue()+" - "
                     +a2.getStringCellValue()+" - "+a3.getNumericCellValue());
+                        break;
+                        case STRING:
+                            System.out.println(a1.getNumericCellValue()+" - "
+                    +a2.getStringCellValue()+" - "+a3.getStringCellValue());
+                        break;}
                 }
-                enMedStream.close();workbook.close();
+                enMedStream.close();workbook.close();*/
             //}
         }
     }
