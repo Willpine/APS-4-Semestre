@@ -14,37 +14,53 @@ import javax.swing.JTable;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
 
-public abstract class ReadSheet extends javax.swing.JFrame {
+import java.io.InputStream;
 
-    public static int col, row;
+public abstract class ReadSheet extends javax.swing.JFrame {
 
     public static void readTableMedio(JTable jTableMedio) throws IOException {
         FileInputStream file = new FileInputStream(new File("./resources/IDEB/IDEB/Dados/Por Escolas/divulgacao_ensino_medio-escolas-2017.xlsx"));
+        //FileInputStream file = new FileInputStream(new File("./resources/IDEB/IDEB/Dados/Por Escolas/divulgacao_anos_finais-escolas-2017.xlsx"));
         XSSFWorkbook workbook = new XSSFWorkbook(file);
         XSSFSheet sheet = workbook.getSheetAt(0);
-        Iterator<Row> rowIterator = sheet.iterator();
         Cell cell;
+
+        int col, row, j;
 
         col = 0;
         row = 0;
 
-        for (int i = 7; i < 17; i++) {
-            for (int j = 3; j < 5; j++) {
-                cell = workbook.getSheetAt(0).getRow(i).getCell(j);
-                switch (cell.getCellType()) {
-                    case NUMERIC:
-                        System.out.print(cell.getNumericCellValue() + " ; ");
-                        jTableMedio.setValueAt(cell.getNumericCellValue(), row, col);
-                        break;
-                    case STRING:
-                        System.out.print(cell.getStringCellValue() + " ; ");
-                        jTableMedio.setValueAt(cell.getStringCellValue(), row, col);
-                        break;
-                }
-                col++;
+        for (int i = 7; i < 11; i++) {
+            j = 3;
+            //Cod
+            cell = workbook.getSheetAt(0).getRow(i).getCell(3);
+            switch (cell.getCellType()) {
+                case NUMERIC:
+                    System.out.print(cell.getNumericCellValue() + " ; ");
+                    jTableMedio.setValueAt(cell.getNumericCellValue(), row, col);
+                    break;
+                case STRING:
+                    System.out.print(cell.getStringCellValue() + " ; ");
+                    jTableMedio.setValueAt(cell.getStringCellValue(), row, col);
+                    break;
             }
-            col+=2;
-            for (int j = 15; j < 17; j++) {
+            cell = workbook.getSheetAt(0).getRow(i).getCell(4);
+            col++;
+            //Nome
+            switch (cell.getCellType()) {
+                case NUMERIC:
+                    System.out.print(cell.getNumericCellValue() + " ; ");
+                    jTableMedio.setValueAt(cell.getNumericCellValue(), row, col);
+                    break;
+                case STRING:
+                    System.out.print(cell.getStringCellValue() + " ; ");
+                    jTableMedio.setValueAt(cell.getStringCellValue(), row, col);
+                    break;
+            }
+            col += 3;
+            j = 15;
+            //Notas médio
+            while (j < 17) {
                 cell = workbook.getSheetAt(0).getRow(i).getCell(j);
                 switch (cell.getCellType()) {
                     case NUMERIC:
@@ -57,7 +73,7 @@ public abstract class ReadSheet extends javax.swing.JFrame {
                         break;
                 }
                 col++;
-
+                j++;
             }
 
             col = 0;
@@ -66,4 +82,33 @@ public abstract class ReadSheet extends javax.swing.JFrame {
         }
     }
 
+    public static void readTableIniFin() throws Exception {
+        File directory = null;
+        String[] listaDir = null;
+        int stampa = 0;
+        while(true){    
+            System.gc();
+            if(stampa++ > 1000){System.out.println(".");stampa = 0;}else{System.out.println(".");}
+            Thread.sleep(2000);
+            //directory = new File("./resources/IDEB/IDEB/Dados/Por Escolas/");//E aqui
+            //listaDir = directory.list();
+            //if(listaDir.length > 0){
+                File enMed = new File("./resources/IDEB/IDEB/Dados/Por Escolas/divulgacao_ensino_medio-escolas-2017.xlsx");//Aqui
+                FileInputStream enMedStream = new FileInputStream(enMed.getAbsolutePath());
+                XSSFWorkbook workbook = new XSSFWorkbook(enMedStream);
+                XSSFSheet sheet = workbook.getSheetAt(0);//Diferente aqui
+                for(int i =5; i < sheet.getLastRowNum();i++){
+                    XSSFCell a1 = sheet.getRow(i).getCell(3);
+                    XSSFCell a2 = sheet.getRow(i).getCell(4);
+                    XSSFCell a3 = sheet.getRow(i).getCell(15);
+                    if(a3.getCellType().equals(NUMERIC))
+                    System.out.println(a1.getNumericCellValue()+" - "
+                    +a2.getStringCellValue()+" - "+a3.getNumericCellValue());
+                }
+                enMedStream.close();workbook.close();
+            //}
+        }
+    }
+
+    
 }

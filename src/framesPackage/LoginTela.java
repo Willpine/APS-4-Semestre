@@ -5,6 +5,9 @@
  */
 package framesPackage;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Will
@@ -110,7 +113,17 @@ public class LoginTela extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastrarBtnActionPerformed
 
     private void rankingBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rankingBtnMouseClicked
-        FrameRanking fr = new FrameRanking();
+        FrameRanking fr = null;
+        try {
+            fr = new FrameRanking();
+        } catch (Exception ex) {
+            Logger.getLogger(LoginTela.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            fr = new FrameRanking();
+        } catch (Exception ex) {
+            Logger.getLogger(LoginTela.class.getName()).log(Level.SEVERE, null, ex);
+        }
                 fr.setLocationRelativeTo(null);
                 fr.setVisible(true);
     }//GEN-LAST:event_rankingBtnMouseClicked

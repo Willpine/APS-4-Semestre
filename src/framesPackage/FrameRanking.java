@@ -10,10 +10,11 @@ import mainPackage.ReadSheet;
 public class FrameRanking extends ReadSheet {
    
     //Constructor
-    public FrameRanking(){
+    public FrameRanking() throws Exception{
         initComponents();
         try {
-            ReadSheet.readTableMedio(mainTable);
+            //ReadSheet.readTableMedio(mainTable);
+            ReadSheet.readTableIniFin();
         } catch (IOException ex) {
             Logger.getLogger(FrameRanking.class.getName()).log(Level.SEVERE, null, ex);
         }
