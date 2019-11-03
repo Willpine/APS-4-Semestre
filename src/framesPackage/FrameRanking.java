@@ -14,7 +14,7 @@ public class FrameRanking extends ReadSheet {
         initComponents();
         try {
             //ReadSheet.readTableMedio(mainTable);
-            ReadSheet.readTableIniFin();
+            ReadSheet.readTableIniFin(false);
         } catch (IOException ex) {
             Logger.getLogger(FrameRanking.class.getName()).log(Level.SEVERE, null, ex);
         }

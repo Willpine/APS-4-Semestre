@@ -7,8 +7,8 @@ import java.io.IOException;
 public class Main extends ReadSheet {
 
     public static void main(String[] args) throws IOException, Exception {
-
-        ReadSheet.readTableIniFin();
+        //false lê anos iniciais, true lê anos finais
+        ReadSheet.readTableIniFin(false);
 //FRAME DE RANKING
         //FrameRanking fr = new FrameRanking();
         //fr.setLocationRelativeTo(null);

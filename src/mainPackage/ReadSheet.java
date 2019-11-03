@@ -85,9 +85,13 @@ public abstract class ReadSheet extends javax.swing.JFrame {
         }
     }
 
-    public static void readTableIniFin() throws Exception {
-
-        InputStream is = new FileInputStream(new File("./resources/IDEB/IDEB/Dados/Por Escolas/divulgacao_anos_finais-escolas-2017.xlsx"));
+    public static void readTableIniFin(boolean type) throws Exception {
+        String file = null;
+        if (type == false)
+            file = "./resources/IDEB/IDEB/Dados/Por Escolas/divulgacao_anos_iniciais-escolas-2017.xlsx";
+        else
+            file = "./resources/IDEB/IDEB/Dados/Por Escolas/divulgacao_anos_finais-escolas-2017.xlsx";
+        InputStream is = new FileInputStream(new File(file));
         Workbook workbook = StreamingReader.builder()
                 .rowCacheSize(100) // number of rows to keep in memory (defaults to 10)
                 .bufferSize(4096) // buffer size to use when reading InputStream to file (defaults to 1024)
@@ -99,8 +103,23 @@ public abstract class ReadSheet extends javax.swing.JFrame {
             
             for (Row r : sheet) {
                 for (Cell c : r) {
-                    System.out.println(c.getStringCellValue() + ";");
-                    
+                    switch(c.getColumnIndex()){
+                        case 3:
+                        System.out.println(c.getStringCellValue() + ";");
+                        break;
+                        case 4:
+                        System.out.println(c.getStringCellValue() + ";");
+                        break;
+                        case 68:
+                        System.out.println(c.getStringCellValue() + ";");
+                        break;
+                        case 75:
+                        System.out.println(c.getStringCellValue() + ";");
+                        break;
+                        default:
+                        break;
+                    }
+                    i++;
                 }
             }
             
