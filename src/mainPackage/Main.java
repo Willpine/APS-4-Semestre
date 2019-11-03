@@ -8,7 +8,7 @@ public class Main extends ReadSheet {
 
     public static void main(String[] args) throws IOException, Exception {
 
-ReadSheet.readTableIniFin();
+        ReadSheet.readTableIniFin();
 //FRAME DE RANKING
         //FrameRanking fr = new FrameRanking();
         //fr.setLocationRelativeTo(null);

@@ -2,6 +2,7 @@
 package mainPackage;
 //APIs que permitem o java manipular outros arquivos quaisquiser
 
+import com.monitorjbl.xlsx.StreamingReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -17,7 +18,6 @@ import org.apache.poi.xssf.usermodel.*;
 import java.io.InputStream;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.openxml4j.opc.PackageAccess;
-import org.apache.poi.xssf.eventusermodel.XLSX2CSV;
 
 public abstract class ReadSheet extends javax.swing.JFrame {
 
@@ -86,42 +86,24 @@ public abstract class ReadSheet extends javax.swing.JFrame {
     }
 
     public static void readTableIniFin() throws Exception {
-        File directory = null;
-        String[] listaDir = null;
-        int stampa = 0;
-        while(true){    
-            System.gc();
-            if(stampa++ > 1000){System.out.println(".");stampa = 0;}else{System.out.println(".");}
-            Thread.sleep(2000);
-            //directory = new File("./resources/IDEB/IDEB/Dados/Por Escolas/");
-            //listaDir = directory.list();
-            //if(listaDir.length > 0){
-                File enMed = new File("./resources/IDEB/IDEB/Dados/Por Escolas/divulgacao_anos_finais-escolas-2017.xlsx");
-                OPCPackage p = OPCPackage.open(enMed.getPath(),PackageAccess.READ);
-                XLSX2CSV xls = new XLSX2CSV(p, System.out,3);
-                xls.process();p.close();
-                /*
-                FileInputStream enMedStream = new FileInputStream(enMed.getAbsolutePath());
-                XSSFWorkbook workbook = new XSSFWorkbook(enMedStream);
-                XSSFSheet sheet = workbook.getSheetAt(0);//Diferente aqui
-                for(int i =5; i < sheet.getLastRowNum();i++){
-                    XSSFCell a1 = sheet.getRow(i).getCell(3);
-                    XSSFCell a2 = sheet.getRow(i).getCell(4);
-                    XSSFCell a3 = sheet.getRow(i).getCell(15);
-                    switch(a3.getCellType()){
-                        case NUMERIC:
-                    System.out.println(a1.getNumericCellValue()+" - "
-                    +a2.getStringCellValue()+" - "+a3.getNumericCellValue());
-                        break;
-                        case STRING:
-                            System.out.println(a1.getNumericCellValue()+" - "
-                    +a2.getStringCellValue()+" - "+a3.getStringCellValue());
-                        break;}
+
+        InputStream is = new FileInputStream(new File("./resources/IDEB/IDEB/Dados/Por Escolas/divulgacao_anos_finais-escolas-2017.xlsx"));
+        Workbook workbook = StreamingReader.builder()
+                .rowCacheSize(100) // number of rows to keep in memory (defaults to 10)
+                .bufferSize(4096) // buffer size to use when reading InputStream to file (defaults to 1024)
+                .open(is);            // InputStream or File for XLSX file (required)
+        int row,cell,i,j;
+        i=0;j=0;row=0;cell=0;
+        for (Sheet sheet : workbook) {
+            System.out.println(sheet.getSheetName());
+            
+            for (Row r : sheet) {
+                for (Cell c : r) {
+                    System.out.println(c.getStringCellValue() + ";");
+                    
                 }
-                enMedStream.close();workbook.close();*/
-            //}
+            }
+            
         }
     }
-
-    
 }
