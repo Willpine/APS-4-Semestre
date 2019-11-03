@@ -87,42 +87,52 @@ public abstract class ReadSheet extends javax.swing.JFrame {
 
     public static void readTableIniFin(boolean type) throws Exception {
         String file = null;
-        if (type == false)
+        if (type == false) {
             file = "./resources/IDEB/IDEB/Dados/Por Escolas/divulgacao_anos_iniciais-escolas-2017.xlsx";
-        else
+        } else {
             file = "./resources/IDEB/IDEB/Dados/Por Escolas/divulgacao_anos_finais-escolas-2017.xlsx";
+        }
         InputStream is = new FileInputStream(new File(file));
         Workbook workbook = StreamingReader.builder()
                 .rowCacheSize(100) // number of rows to keep in memory (defaults to 10)
                 .bufferSize(4096) // buffer size to use when reading InputStream to file (defaults to 1024)
                 .open(is);            // InputStream or File for XLSX file (required)
-        int row,cell,i,j;
-        i=0;j=0;row=0;cell=0;
+        int row, cell, i, j;
+        i = 0;
+        j = 0;
+        row = 0;
+        cell = 0;
         for (Sheet sheet : workbook) {
             System.out.println(sheet.getSheetName());
-            
+
             for (Row r : sheet) {
-                for (Cell c : r) {
-                    switch(c.getColumnIndex()){
-                        case 3:
-                        System.out.println(c.getStringCellValue() + ";");
-                        break;
-                        case 4:
-                        System.out.println(c.getStringCellValue() + ";");
-                        break;
-                        case 68:
-                        System.out.println(c.getStringCellValue() + ";");
-                        break;
-                        case 75:
-                        System.out.println(c.getStringCellValue() + ";");
-                        break;
-                        default:
-                        break;
+                if (r.getRowNum() < 16) {
+                    for (Cell c : r) {
+                        if (c.getRowIndex() > 7) {
+
+                            switch (c.getColumnIndex()) {
+                                case 3:
+                                    System.out.println(c.getNumericCellValue() + ";");
+                                    break;
+                                case 4:
+                                    System.out.println(c.getStringCellValue() + ";");
+                                    break;
+                                case 68:
+                                    System.out.println(c.getStringCellValue() + ";");
+                                    break;
+                                case 75:
+                                    System.out.println(c.getStringCellValue() + ";");
+                                    break;
+                                default:
+                                    break;
+                            }
+                        } else {}
+                        
                     }
-                    i++;
                 }
+
             }
-            
         }
     }
+
 }

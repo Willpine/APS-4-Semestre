@@ -20,13 +20,13 @@ public class EscolaDAO {
                     + "(ID_ESC,RANK_ESC,NOME_ESC,MED_INI,MED_FIN,MED_MED,MED_IDEB)"
                     + " VALUES (?,?,?,?,?,?,?)");
             
-            stmt.setString(1, Integer.toString(esc.getID_ESC()));
+            stmt.setInt(1, esc.getID_ESC());
             stmt.setString(2, Integer.toString(esc.getRANK_ESC()));
             stmt.setString(3, esc.getNOME_ESC());
-            stmt.setString(4, Float.toString(esc.getMED_INI()));
-            stmt.setString(5, Float.toString(esc.getMED_FIN()));
-            stmt.setString(6, Float.toString(esc.getMED_MED()));
-            stmt.setString(7, Float.toString(esc.getMED_IDEB()));
+            stmt.setFloat(4, esc.getMED_INI());
+            stmt.setFloat(5, esc.getMED_FIN());
+            stmt.setFloat(6, esc.getMED_MED());
+            stmt.setFloat(7, esc.getMED_IDEB());
 
             stmt.executeUpdate();
 
