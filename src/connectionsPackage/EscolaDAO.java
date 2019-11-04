@@ -21,7 +21,7 @@ public class EscolaDAO {
                     + " VALUES (?,?,?,?,?,?,?)");
             
             stmt.setInt(1, esc.getID_ESC());
-            stmt.setString(2, Integer.toString(esc.getRANK_ESC()));
+            stmt.setInt(2, esc.getRANK_ESC());
             stmt.setString(3, esc.getNOME_ESC());
             stmt.setFloat(4, esc.getMED_INI());
             stmt.setFloat(5, esc.getMED_FIN());

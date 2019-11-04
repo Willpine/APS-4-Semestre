@@ -114,7 +114,7 @@ public abstract class ReadSheet extends javax.swing.JFrame {
                                 case 3:
                                     System.out.println(c.getNumericCellValue() + ";");
                                     break;
-                                case 4:
+                                case 4:if(c.getCellType()==c.getCellType().STRING)
                                     System.out.println(c.getStringCellValue() + ";");
                                     break;
                                 case 68:
