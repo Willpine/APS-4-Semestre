@@ -3,6 +3,7 @@ package mainPackage;
 //APIs que permitem o java manipular outros arquivos quaisquiser
 
 import com.monitorjbl.xlsx.StreamingReader;
+import connectionsPackage.EscolaDAO;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -33,7 +34,12 @@ public abstract class ReadSheet extends javax.swing.JFrame {
         col = 0;
         row = 0;
 
+        //Conexão como banco
         for (int i = 7; i < 11; i++) {
+
+            Escola escola = new Escola();
+            EscolaDAO escolaDAO = new EscolaDAO();
+
             j = 3;
             //Cod
             cell = workbook.getSheetAt(0).getRow(i).getCell(3);
@@ -41,10 +47,12 @@ public abstract class ReadSheet extends javax.swing.JFrame {
                 case NUMERIC:
                     System.out.print(cell.getNumericCellValue() + " ; ");
                     jTableMedio.setValueAt(cell.getNumericCellValue(), row, col);
+                    escola.setID_ESC((int) cell.getNumericCellValue());
                     break;
                 case STRING:
                     System.out.print(cell.getStringCellValue() + " ; ");
                     jTableMedio.setValueAt(cell.getStringCellValue(), row, col);
+
                     break;
             }
             cell = workbook.getSheetAt(0).getRow(i).getCell(4);
@@ -58,30 +66,49 @@ public abstract class ReadSheet extends javax.swing.JFrame {
                 case STRING:
                     System.out.print(cell.getStringCellValue() + " ; ");
                     jTableMedio.setValueAt(cell.getStringCellValue(), row, col);
+                    escola.setNOME_ESC(cell.getStringCellValue());
                     break;
             }
             col += 3;
             j = 15;
             //Notas médio
-            while (j < 17) {
-                cell = workbook.getSheetAt(0).getRow(i).getCell(j);
-                switch (cell.getCellType()) {
-                    case NUMERIC:
-                        System.out.print(cell.getNumericCellValue() + " ; ");
-                        jTableMedio.setValueAt(cell.getNumericCellValue(), row, col);
-                        break;
-                    case STRING:
-                        System.out.print(cell.getStringCellValue() + " ; ");
-                        jTableMedio.setValueAt(cell.getStringCellValue(), row, col);
-                        break;
-                }
-                col++;
-                j++;
+            cell = workbook.getSheetAt(0).getRow(i).getCell(15);
+            switch (cell.getCellType()) {
+                case NUMERIC:
+                    System.out.print(cell.getNumericCellValue() + " ; ");
+                    jTableMedio.setValueAt(cell.getNumericCellValue(), row, col);
+                    escola.setMED_MED((float) cell.getNumericCellValue());
+                    break;
+                case STRING:
+                    System.out.print(cell.getStringCellValue() + " ; ");
+                    jTableMedio.setValueAt(cell.getStringCellValue(), row, col);
+                    escola.setMED_IDEB(0);
+                    break;
             }
+            col++;
+            j++;
 
+            cell = workbook.getSheetAt(0).getRow(i).getCell(16);
+            switch (cell.getCellType()) {
+                case NUMERIC:
+                    System.out.print(cell.getNumericCellValue() + " ; ");
+                    jTableMedio.setValueAt(cell.getNumericCellValue(), row, col);
+                    escola.setMED_IDEB((float) cell.getNumericCellValue());
+                    break;
+                case STRING:
+                    System.out.print(cell.getStringCellValue() + " ; ");
+                    jTableMedio.setValueAt(cell.getStringCellValue(), row, col);
+                    escola.setMED_IDEB(0);
+                    break;
+            }
+            col++;
+            j++;
+
+            escolaDAO.createMed(escola);
             col = 0;
             System.out.println("");
             row++;
+
         }
     }
 
@@ -96,7 +123,7 @@ public abstract class ReadSheet extends javax.swing.JFrame {
         Workbook workbook = StreamingReader.builder()
                 .rowCacheSize(100) // number of rows to keep in memory (defaults to 10)
                 .bufferSize(4096) // buffer size to use when reading InputStream to file (defaults to 1024)
-                .open(is);            // InputStream or File for XLSX file (required)
+                .open(is);// InputStream or File for XLSX file (required)
         int row, cell, i, j;
         i = 0;
         j = 0;
@@ -106,33 +133,50 @@ public abstract class ReadSheet extends javax.swing.JFrame {
             System.out.println(sheet.getSheetName());
 
             for (Row r : sheet) {
-                if (r.getRowNum() < 16) {
-                    for (Cell c : r) {
-                        if (c.getRowIndex() > 7) {
+                Escola escola = new Escola();
+                EscolaDAO escolaDAO = new EscolaDAO();
+                if (r.getRowNum() < 12) {
+                    if (r.getRowNum() > 7) {
+                        for (Cell c : r) {
 
                             switch (c.getColumnIndex()) {
                                 case 3:
                                     System.out.println(c.getNumericCellValue() + ";");
+                                    escola.setID_ESC((int) c.getNumericCellValue());
                                     break;
-                                case 4:if(c.getCellType()==c.getCellType().STRING)
+                                case 4:
                                     System.out.println(c.getStringCellValue() + ";");
-                                    break;
-                                case 68:
-                                    System.out.println(c.getStringCellValue() + ";");
+                                    escola.setNOME_ESC(c.getStringCellValue());
                                     break;
                                 case 75:
-                                    System.out.println(c.getStringCellValue() + ";");
+                                    if (c.getCellType() == c.getCellType().NUMERIC) {
+                                        System.out.println(c.getNumericCellValue() + ";");
+                                        escola.setMED_INI((float) c.getNumericCellValue());
+                                    } else {
+                                        System.out.println(c.getStringCellValue() + ";");
+                                        escola.setMED_INI(0);
+                                    }
+                                    break;
+                                case 82:
+                                    if (c.getCellType() == c.getCellType().NUMERIC) {
+                                        System.out.println(c.getNumericCellValue() + ";");
+                                        escola.setMED_IDEB((float) c.getNumericCellValue());
+                                    } else {
+                                        System.out.println(c.getStringCellValue() + ";");
+                                        escola.setMED_IDEB(0);
+                                    }
                                     break;
                                 default:
                                     break;
                             }
-                        } else {}
-                        
-                    }
+                        }
+                    escolaDAO.createIni(escola);}
                 }
 
             }
-        }
-    }
 
+        }
+
+    }
 }
+

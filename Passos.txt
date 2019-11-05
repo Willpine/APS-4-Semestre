@@ -1,0 +1,15 @@
+Escrever uma nova tabela excel com
+todos os dados lá
+
+De lá, puxar para o BD
+
+Ou, simplesmente escrever tudo direto
+no BD
+
+Se eu for escrever tudo direto no BD:
+
+Registrar todos os anos iniciais
+primeiro
+
+Depois, registrar os anos finais(apenas
+as médias 
