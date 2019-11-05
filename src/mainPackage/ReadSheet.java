@@ -178,5 +178,68 @@ public abstract class ReadSheet extends javax.swing.JFrame {
         }
 
     }
+    
+    public static void readTableFin() throws Exception {
+
+        
+        InputStream is = new FileInputStream(new File ("./resources/IDEB/IDEB/Dados/Por Escolas/divulgacao_anos_finais-escolas-2017.xlsx"));
+        Workbook workbook = StreamingReader.builder()
+                .rowCacheSize(100) // number of rows to keep in memory (defaults to 10)
+                .bufferSize(4096) // buffer size to use when reading InputStream to file (defaults to 1024)
+                .open(is);// InputStream or File for XLSX file (required)
+        int row, cell, i, j;
+        i = 0;
+        j = 0;
+        row = 0;
+        cell = 0;
+        for (Sheet sheet : workbook) {
+            System.out.println(sheet.getSheetName());
+
+            for (Row r : sheet) {
+                Escola escola = new Escola();
+                EscolaDAO escolaDAO = new EscolaDAO();
+                if (r.getRowNum() < 12) {
+                    if (r.getRowNum() > 7) {
+                        for (Cell c : r) {
+
+                            switch (c.getColumnIndex()) {
+                                case 3:
+                                    System.out.println(c.getNumericCellValue() + ";");
+                                    escola.setID_ESC((int) c.getNumericCellValue());
+                                    break;
+                                case 4:
+                                    System.out.println(c.getStringCellValue() + ";");
+                                    escola.setNOME_ESC(c.getStringCellValue());
+                                    break;
+                                case 75:
+                                    if (c.getCellType() == c.getCellType().NUMERIC) {
+                                        System.out.println(c.getNumericCellValue() + ";");
+                                        escola.setMED_FIN((float) c.getNumericCellValue());
+                                    } else {
+                                        System.out.println(c.getStringCellValue() + ";");
+                                        escola.setMED_FIN(0);
+                                    }
+                                    break;
+                                case 82:
+                                    if (c.getCellType() == c.getCellType().NUMERIC) {
+                                        System.out.println(c.getNumericCellValue() + ";");
+                                        escola.setMED_IDEB((float) c.getNumericCellValue());
+                                    } else {
+                                        System.out.println(c.getStringCellValue() + ";");
+                                        escola.setMED_IDEB(0);
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    escolaDAO.createFin(escola);}
+                }
+
+            }
+
+        }
+
+    }
 }
 

@@ -64,4 +64,32 @@ public class EscolaDAO {
         }
 
     }
+    
+    public void createFin(Escola esc) {
+
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = con.prepareStatement("INSERT INTO ESCOLA_FIN "
+                    + "(ID_ESC,RANK_ESC,NOME_ESC,MED_FIN,MED_IDEB)"
+                    + " VALUES (?,?,?,?,?)");
+            
+            stmt.setInt(1, esc.getID_ESC());
+            stmt.setInt(2, esc.getRANK_ESC());
+            stmt.setString(3, esc.getNOME_ESC());
+            stmt.setFloat(4, esc.getMED_FIN());
+            stmt.setFloat(5, esc.getMED_IDEB());
+
+            stmt.executeUpdate();
+
+            System.out.println("Salvo com sucesso");
+        } catch (SQLException ex) {
+            Logger.getLogger(EscolaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro na conexão");
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+
+    }
 }
