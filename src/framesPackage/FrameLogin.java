@@ -12,12 +12,12 @@ import java.util.logging.Logger;
  *
  * @author Will
  */
-public class LoginTela extends javax.swing.JFrame {
+public class FrameLogin extends javax.swing.JFrame {
 
     /**
      * Creates new form LoginTela
      */
-    public LoginTela() {
+    public FrameLogin() {
         initComponents();
     }
 
@@ -35,8 +35,7 @@ public class LoginTela extends javax.swing.JFrame {
         acessarBtn = new javax.swing.JButton();
         loginTxt = new javax.swing.JTextField();
         senhaTxt = new javax.swing.JTextField();
-        cadastrarBtn = new javax.swing.JButton();
-        rankingBtn = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela de Login");
@@ -45,17 +44,15 @@ public class LoginTela extends javax.swing.JFrame {
 
         acessarBtn.setText("Acessar");
 
-        cadastrarBtn.setText("Cadastrar");
-        cadastrarBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadastrarBtnActionPerformed(evt);
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCadastrarMouseClicked(evt);
             }
         });
-
-        rankingBtn.setText("Ranking");
-        rankingBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rankingBtnMouseClicked(evt);
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
             }
         });
 
@@ -71,8 +68,7 @@ public class LoginTela extends javax.swing.JFrame {
                         .addComponent(senhaTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(acessarBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(rankingBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cadastrarBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnCadastrar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(164, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -84,11 +80,9 @@ public class LoginTela extends javax.swing.JFrame {
                 .addComponent(senhaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(acessarBtn)
-                .addGap(18, 18, 18)
-                .addComponent(rankingBtn)
-                .addGap(18, 18, 18)
-                .addComponent(cadastrarBtn)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCadastrar)
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -105,28 +99,19 @@ public class LoginTela extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cadastrarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarBtnActionPerformed
-        CadastroTela cad = new CadastroTela();
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        FrameCadastro cad = new FrameCadastro();
         cad.setVisible(true);
         cad.setLocationRelativeTo(null);
-        LoginTela.this.dispose();
-    }//GEN-LAST:event_cadastrarBtnActionPerformed
+        FrameLogin.this.dispose();
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
-    private void rankingBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rankingBtnMouseClicked
-        FrameRanking fr = null;
-        try {
-            fr = new FrameRanking();
-        } catch (Exception ex) {
-            Logger.getLogger(LoginTela.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            fr = new FrameRanking();
-        } catch (Exception ex) {
-            Logger.getLogger(LoginTela.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                fr.setLocationRelativeTo(null);
-                fr.setVisible(true);
-    }//GEN-LAST:event_rankingBtnMouseClicked
+    private void btnCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarMouseClicked
+        FrameCadastro tl1 = new FrameCadastro();
+        tl1.setVisible(true);
+        tl1.setLocationRelativeTo(null);
+        FrameLogin.this.dispose();
+    }//GEN-LAST:event_btnCadastrarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -145,32 +130,33 @@ public class LoginTela extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginTela().setVisible(true);
+                new FrameLogin().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton acessarBtn;
-    private javax.swing.JButton cadastrarBtn;
+    private javax.swing.JButton btnCadastrar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSlider jSlider1;
     private javax.swing.JTextField loginTxt;
-    private javax.swing.JButton rankingBtn;
     private javax.swing.JTextField senhaTxt;
     // End of variables declaration//GEN-END:variables
 }

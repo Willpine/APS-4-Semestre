@@ -1,8 +1,9 @@
 package mainPackage;
 
 import connectionsPackage.EscolaDAO;
+import framesPackage.FrameCadastro;
 import framesPackage.FrameRanking;
-import framesPackage.LoginTela;
+import framesPackage.FrameLogin;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -15,7 +16,6 @@ public class Main extends ReadSheet {
 //        str = str.replaceAll(",",".");
 //        float f = Float.parseFloat(str);
 //        System.out.println(str);
-
         //false lê anos iniciais, true lê anos finais
         //ReadSheet.readTableIniFin(false);
 //        Escola escola = new Escola();
@@ -35,9 +35,9 @@ public class Main extends ReadSheet {
         fr.setLocationRelativeTo(null);
         fr.setVisible(true);
         fr.setResizable(false);
-//        LoginTela lt = new LoginTela();
-//        lt.setLocationRelativeTo(null);
-//        lt.setVisible(true);
+        FrameCadastro frc = new FrameCadastro();
+        frc.setLocationRelativeTo(null);
+        frc.setVisible(true);
     }
 
 }

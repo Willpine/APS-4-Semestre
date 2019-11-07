@@ -1,15 +1,26 @@
-Escrever uma nova tabela excel com
-todos os dados lá
+Ao selecionar a primeira escola:
+Direcionado para o frame com
+Sugestão, nome do aluno e data.
+A sugestão poderá ser excluída se o tipo
+de usuário for um professor.
 
-De lá, puxar para o BD
+Informações:
+CREATE TABLE SUGESTAO(
+ID_SUG INT PRIMARY KEY,
+RA_ALU INT NOT NULL,
+ID_ESC INT NOT NULL,
+NOME_ALU VARCHAR(100),
+NOME_ESC VAR_CHAR(100),
+SUG String Varchar(280);
+Data feita
+);
 
-Ou, simplesmente escrever tudo direto
-no BD
+Página de cadastro puxará 4 informações:
+CREATE TABLE ALUNO(
+RA_ALU varchar(12),
+NOME_ALU VARCHAR(100),
+ANO_ALU VARCHAR(3),
+SENHA_ALU VARCHAR(20),
+ID_ESC INT
+);
 
-Se eu for escrever tudo direto no BD:
-
-Registrar todos os anos iniciais
-primeiro
-
-Depois, registrar os anos finais(apenas
-as médias 

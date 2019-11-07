@@ -26,28 +26,31 @@ public class ConnectionFactory {
 
     public static void closeConnection(Connection con) {
         try {
-            if(con != null)
-            con.close();
+            if (con != null) {
+                con.close();
+            }
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public static void closeConnection(Connection con, PreparedStatement ppstmt) {
         closeConnection(con);
         try {
-            if(ppstmt != null)
+            if (ppstmt != null) {
                 ppstmt.close();
+            }
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public static void closeConnection(Connection con, PreparedStatement ppstmt, ResultSet rs) {
         closeConnection(con);
         try {
-            if(rs != null)
+            if (rs != null) {
                 rs.close();
+            }
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
         }

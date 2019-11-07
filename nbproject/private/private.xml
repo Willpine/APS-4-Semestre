@@ -5,10 +5,12 @@
         <group>
             <file>file:/C:/Users/japam/Documents/Unip/2019/APS4/WillianNB/src/framesPackage/FrameRanking.java</file>
             <file>file:/C:/Users/japam/Documents/Unip/2019/APS4/WillianNB/src/mainPackage/Escola.java</file>
-            <file>file:/C:/Users/japam/Documents/Unip/2019/APS4/WillianNB/src/mainPackage/ReadSheet.java</file>
+            <file>file:/C:/Users/japam/Documents/Unip/2019/APS4/WillianNB/src/framesPackage/FrameCadastro.java</file>
+            <file>file:/C:/Users/japam/Documents/Unip/2019/APS4/WillianNB/src/framesPackage/FrameLogin.java</file>
             <file>file:/C:/Users/japam/Documents/Unip/2019/APS4/WillianNB/src/connectionsPackage/EscolaDAO.java</file>
+            <file>file:/C:/Users/japam/Documents/Unip/2019/APS4/WillianNB/src/mainPackage/Aluno.java</file>
             <file>file:/C:/Users/japam/Documents/Unip/2019/APS4/WillianNB/src/mainPackage/Main.java</file>
-            <file>file:/C:/Users/japam/Documents/Unip/2019/APS4/WillianNB/src/connectionsPackage/ConnectionFactory.java</file>
+            <file>file:/C:/Users/japam/Documents/Unip/2019/APS4/WillianNB/src/connectionsPackage/AlunoDAO.java</file>
         </group>
     </open-files>
 </project-private>

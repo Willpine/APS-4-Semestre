@@ -1,7 +1,7 @@
 package mainPackage;
 
 public class Escola {
-   
+
     private int ID_ESC;
     private int RANK_ESC;
     private String NOME_ESC;
@@ -9,6 +9,25 @@ public class Escola {
     private float MED_FIN;
     private float MED_MED;
     private float MED_IDEB;
+
+    public float getINI_IDEB() {
+        return INI_IDEB;
+    }
+
+    public void setINI_IDEB(float INI_IDEB) {
+        this.INI_IDEB = INI_IDEB;
+    }
+
+    public float getFIN_IDEB() {
+        return FIN_IDEB;
+    }
+
+    public void setFIN_IDEB(float FIN_IDEB) {
+        this.FIN_IDEB = FIN_IDEB;
+    }
+    private float INI_IDEB;
+
+    private float FIN_IDEB;
 
     public int getID_ESC() {
         return ID_ESC;
