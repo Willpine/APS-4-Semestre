@@ -77,5 +77,27 @@ public class SugestaoDAO {
         return sugestoes;
 
     }
+    
+    public void deleteSug(Sugestao sug) {
+
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = con.prepareStatement("DELETE FROM SUGESTAO WHERE SUG = ? ");
+
+            stmt.setString(1, sug.getSUG());
+
+            stmt.executeUpdate();
+
+            System.out.println("Deletado com sucesso");
+        } catch (SQLException ex) {
+            Logger.getLogger(SugestaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro na conexão");
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+
+    }
 }
 

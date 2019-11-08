@@ -20,17 +20,31 @@ import mainPackage.Sugestao;
  * @author japam
  */
 public class FrameSugestao extends javax.swing.JFrame {
+
     public static String ra;
+
     /**
      * Creates new form FrameSugestao
      */
     public FrameSugestao(String ra) {
         this.ra = ra;
-        
+
         initComponents();
+
+        mainTable.setAutoResizeMode(mainTable.AUTO_RESIZE_OFF);
+        mainTable.getColumnModel().getColumn(0).setPreferredWidth(300);
+        mainTable.getColumnModel().getColumn(1).setPreferredWidth(200);
+        mainTable.getColumnModel().getColumn(2).setPreferredWidth(80);
+        mainTable.getColumnModel().getColumn(3).setPreferredWidth(300);
+
+        readTable();
+    }
+    
+    public void readTable(){
+        
         
         DefaultTableModel modelo = (DefaultTableModel) mainTable.getModel();
-
+        modelo.setRowCount(0);
         SugestaoDAO sugestaoDAO = new SugestaoDAO();
         for (Sugestao sugestao : sugestaoDAO.readSug()) {
             modelo.addRow(new Object[]{
@@ -55,10 +69,13 @@ public class FrameSugestao extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         mainTable = new javax.swing.JTable();
         tfSearch = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        taSugestao = new javax.swing.JTextArea();
         btnSugerir = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        taSugestao = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        taSelecionado = new javax.swing.JTextArea();
+        btnExxcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,7 +83,7 @@ public class FrameSugestao extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 388, Short.MAX_VALUE)
+            .addGap(0, 504, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,6 +107,11 @@ public class FrameSugestao extends javax.swing.JFrame {
             }
         });
         mainTable.setRowHeight(70);
+        mainTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mainTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(mainTable);
 
         tfSearch.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -97,10 +119,6 @@ public class FrameSugestao extends javax.swing.JFrame {
                 tfSearchKeyReleased(evt);
             }
         });
-
-        taSugestao.setColumns(20);
-        taSugestao.setRows(5);
-        jScrollPane2.setViewportView(taSugestao);
 
         btnSugerir.setText("Sugerir");
         btnSugerir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -116,19 +134,45 @@ public class FrameSugestao extends javax.swing.JFrame {
             }
         });
 
+        taSugestao.setColumns(20);
+        taSugestao.setRows(5);
+        taSugestao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                taSugestaoKeyReleased(evt);
+            }
+        });
+        jScrollPane3.setViewportView(taSugestao);
+
+        taSelecionado.setColumns(20);
+        taSelecionado.setRows(5);
+        jScrollPane2.setViewportView(taSelecionado);
+
+        btnExxcluir.setText("Excluir");
+        btnExxcluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnExxcluirMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSugerir)
-                    .addComponent(btnVoltar))
-                .addGap(26, 26, 26))
+                .addGap(58, 58, 58)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnSugerir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnExxcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(26, 26, 26))))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -143,14 +187,20 @@ public class FrameSugestao extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(60, 60, 60))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
                                 .addComponent(btnSugerir)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnVoltar))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)))
+                                .addGap(8, 8, 8)
+                                .addComponent(btnExxcluir)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnVoltar)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)))
                 .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -160,31 +210,53 @@ public class FrameSugestao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVoltarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMousePressed
-            FrameMenu tl1 = new FrameMenu(ra);
-            tl1.setVisible(true);
-            tl1.setLocationRelativeTo(null);
-            FrameSugestao.this.dispose();
+        FrameMenu tl1 = new FrameMenu(ra);
+        tl1.setVisible(true);
+        tl1.setLocationRelativeTo(null);
+        FrameSugestao.this.dispose();
     }//GEN-LAST:event_btnVoltarMousePressed
 
     private void btnSugerirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSugerirMouseClicked
         Sugestao sugestao = new Sugestao();
         SugestaoDAO sugestaoDAO = new SugestaoDAO();
         AlunoDAO alunoDAO = new AlunoDAO();
-        
-        sugestao.setSUG(taSugestao.getText());
+        String sug = taSugestao.getText();
+
+        sugestao.setSUG(sug.toUpperCase());
         sugestao.setRA_ALU(ra);
         sugestao.setID_ESC(alunoDAO.getEscId(ra));
-        
+
         sugestaoDAO.createSug(sugestao);
+        
+        readTable();
     }//GEN-LAST:event_btnSugerirMouseClicked
 
     private void tfSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfSearchKeyReleased
-DefaultTableModel model = (DefaultTableModel) mainTable.getModel();
+        DefaultTableModel model = (DefaultTableModel) mainTable.getModel();
         String search = tfSearch.getText().toUpperCase();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(model);
         mainTable.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(search));        // TODO add your handling code here:
     }//GEN-LAST:event_tfSearchKeyReleased
+
+    private void taSugestaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_taSugestaoKeyReleased
+        taSugestao.setLineWrap(true);
+    }//GEN-LAST:event_taSugestaoKeyReleased
+
+    private void mainTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainTableMouseClicked
+        int row = mainTable.getSelectedRow();
+        taSelecionado.setText((String)mainTable.getValueAt(row, 0));
+    }//GEN-LAST:event_mainTableMouseClicked
+
+    private void btnExxcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExxcluirMouseClicked
+        if(mainTable.getSelectedRow() != -1){
+            Sugestao sugestao = new Sugestao();
+            SugestaoDAO sugestaoDAO = new SugestaoDAO();
+            sugestao.setSUG((String)(mainTable.getValueAt(mainTable.getSelectedRow(), 0)));
+            sugestaoDAO.deleteSug(sugestao);
+            readTable();
+        }
+    }//GEN-LAST:event_btnExxcluirMouseClicked
 
     /**
      * @param args the command line arguments
@@ -222,12 +294,15 @@ DefaultTableModel model = (DefaultTableModel) mainTable.getModel();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExxcluir;
     private javax.swing.JButton btnSugerir;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable mainTable;
+    private javax.swing.JTextArea taSelecionado;
     private javax.swing.JTextArea taSugestao;
     private javax.swing.JTextField tfSearch;
     // End of variables declaration//GEN-END:variables

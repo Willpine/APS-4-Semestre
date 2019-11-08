@@ -2,6 +2,7 @@
 package framesPackage;
 
 import connectionsPackage.EscolaDAO;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -9,12 +10,15 @@ import mainPackage.Escola;
 import mainPackage.ReadSheet;
 
 public class FrameRanking extends ReadSheet {
+
     public static String ra;
+
     //Constructor
     public FrameRanking(String ra) throws Exception {
-        this.ra=ra;
+        this.ra = ra;
         initComponents();
-        readJTable();
+        mainTable.getColumnModel().getColumn(1).setPreferredWidth(300);
+
 //        try {
 //           //ReadSheet.readTableMedio(mainTable);
 //           //ReadSheet.readTableIniFin();
@@ -24,14 +28,29 @@ public class FrameRanking extends ReadSheet {
 //        }
     }
 
-    public void readJTable() {
+    public void readJTable(int tipo) {
         DefaultTableModel modelo = (DefaultTableModel) mainTable.getModel();
 
         EscolaDAO escolaDAO = new EscolaDAO();
         int i = 1;
-        for (Escola escola : escolaDAO.readMed()) {
+        if (tipo != 1) {
+            for (Escola escola : escolaDAO.readMed(tipo)) {
+                modelo.addRow(new Object[]{
+                    i,
+                    escola.getNOME_ESC(),
+                    escola.getMED_INI(),
+                    escola.getMED_FIN(),
+                    escola.getMED_MED(),
+                    escola.getINI_IDEB(),
+                    escola.getFIN_IDEB(),
+                    escola.getMED_IDEB()
+                });
+                i++;
+            }
+        } else {
+            for (Escola escola : escolaDAO.readMed(tipo)) {
             modelo.addRow(new Object[]{
-                i,
+                0,
                 escola.getNOME_ESC(),
                 escola.getMED_INI(),
                 escola.getMED_FIN(),
@@ -42,6 +61,9 @@ public class FrameRanking extends ReadSheet {
             });
             i++;
         }
+
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -53,6 +75,8 @@ public class FrameRanking extends ReadSheet {
         mainTable = new javax.swing.JTable();
         tfSearch = new javax.swing.JTextField();
         btnVoltar = new javax.swing.JButton();
+        btnSort = new javax.swing.JButton();
+        cbRanking = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -117,6 +141,20 @@ public class FrameRanking extends ReadSheet {
             }
         });
 
+        btnSort.setText("Sort");
+        btnSort.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnSortMousePressed(evt);
+            }
+        });
+        btnSort.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSortActionPerformed(evt);
+            }
+        });
+
+        cbRanking.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o Ranking", "Ordem alfabética", "Por SAEB Anos Iniciais", "Por SAEB Anos finais", "Por SAEB Ensino Médio", "Por IDEB Anos Iniciais", "Por IDEB Anos Finais", "Por IDEB Ensino Médio" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -131,8 +169,12 @@ public class FrameRanking extends ReadSheet {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSort, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnVoltar)
-                .addGap(508, 508, 508))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbRanking, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(91, 91, 91))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,7 +184,10 @@ public class FrameRanking extends ReadSheet {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnVoltar)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnVoltar)
+                    .addComponent(btnSort)
+                    .addComponent(cbRanking, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
@@ -187,8 +232,25 @@ public class FrameRanking extends ReadSheet {
         FrameRanking.this.dispose();
     }//GEN-LAST:event_btnVoltarMousePressed
 
+    private void btnSortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSortActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSortActionPerformed
+
+    private void btnSortMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSortMousePressed
+        int ind = cbRanking.getSelectedIndex();
+        if (ind != 0) {
+            DefaultTableModel dtm = (DefaultTableModel) mainTable.getModel();
+            dtm.setRowCount(0);
+            readJTable(cbRanking.getSelectedIndex());
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um Sort!");
+        }
+    }//GEN-LAST:event_btnSortMousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSort;
     private javax.swing.JButton btnVoltar;
+    private javax.swing.JComboBox<String> cbRanking;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

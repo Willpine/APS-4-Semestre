@@ -94,9 +94,9 @@ public class FrameMenu extends javax.swing.JFrame {
         frameMenuLayout.setVerticalGroup(
             frameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(frameMenuLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(35, 35, 35)
                 .addComponent(labelNome)
-                .addGap(60, 60, 60)
+                .addGap(31, 31, 31)
                 .addComponent(btnRanking)
                 .addGap(18, 18, 18)
                 .addComponent(btnSugestao)

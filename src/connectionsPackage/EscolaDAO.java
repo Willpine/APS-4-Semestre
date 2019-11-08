@@ -96,12 +96,24 @@ public class EscolaDAO {
 
     }
 
-    public List<Escola> readMed() {
+    public List<Escola> readMed(int tipo) {
 
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         List<Escola> escolas = new ArrayList();
+        String ensino = null;
+        String ordem = "DESC";
+        switch(tipo){
+            case 1:ensino = "NOME_ESC";ordem="ASC";break;
+            case 2:ensino = "MED_INI";break;
+            case 3:ensino = "MED_FIN";break;
+            case 4:ensino = "MED_MED";break;
+            case 5:ensino = "IDEB_INI";break;
+            case 6:ensino = "IDEB_FIN";break;
+            case 7:ensino = "IDEB_MED";break;
+            
+        }
 
         try {
             stmt = con.prepareStatement("SELECT NOME_ESC,MED_INI,MED_FIN,MED_MED,IDEB_INI,IDEB_MED,IDEB_FIN\n"
@@ -110,7 +122,7 @@ public class EscolaDAO {
                     + "ON ESCOLA_INI.ID_ESC = ESCOLA_FIN.ID_ESC\n"
                     + "LEFT JOIN ESCOLA_MED\n"
                     + "ON ESCOLA_INI.ID_ESC = ESCOLA_MED.ID_ESC\n"
-                    + "ORDER BY MED_MED DESC;");
+                    + "ORDER BY "+ensino+" "+ordem);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Escola escola = new Escola();

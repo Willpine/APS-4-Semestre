@@ -293,10 +293,10 @@ public class FrameCadastro extends javax.swing.JFrame {
                 break;
         }
         try{
-        aluno.setNOME_ALU(nome);
+        aluno.setNOME_ALU(nome.toUpperCase());
         aluno.setSENHA_ALU(senha);
-        aluno.setRA_ALU(ra);
-        aluno.setANO_ALU(ano);
+        aluno.setRA_ALU(ra.toUpperCase());
+        aluno.setANO_ALU(ano.toUpperCase());
         aluno.setID_ESC(cod_esc);
         
         alunoDAO.createAlu(aluno);
