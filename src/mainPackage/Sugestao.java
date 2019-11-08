@@ -2,6 +2,25 @@ package mainPackage;
 
 public class Sugestao {
 
+    public String getNOME_ESC() {
+        return NOME_ESC;
+    }
+
+    public void setNOME_ESC(String NOME_ESC) {
+        this.NOME_ESC = NOME_ESC;
+    }
+
+    public String getNOME_ALU() {
+        return NOME_ALU;
+    }
+
+    public void setNOME_ALU(String NOME_ALU) {
+        this.NOME_ALU = NOME_ALU;
+    }
+    
+    private String NOME_ESC;
+    private String NOME_ALU;
+
     public int getID_SUG() {
         return ID_SUG;
     }

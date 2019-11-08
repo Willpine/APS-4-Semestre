@@ -55,6 +55,11 @@ public class FrameMenu extends javax.swing.JFrame {
         });
 
         btnSugestao.setText("Dê uma sugestão");
+        btnSugestao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnSugestaoMousePressed(evt);
+            }
+        });
 
         labelNome.setForeground(new java.awt.Color(0, 0, 255));
         labelNome.setText("/nome do aluno");
@@ -134,6 +139,13 @@ public class FrameMenu extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnRankingMousePressed
+
+    private void btnSugestaoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSugestaoMousePressed
+        FrameSugestao frs = new FrameSugestao(ra);
+        frs.setLocationRelativeTo(null);
+        frs.setVisible(true);
+        FrameMenu.this.dispose();
+    }//GEN-LAST:event_btnSugestaoMousePressed
 
     /**
      * @param args the command line arguments

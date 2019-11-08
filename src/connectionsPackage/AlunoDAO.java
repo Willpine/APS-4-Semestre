@@ -12,7 +12,7 @@ import mainPackage.Aluno;
 import mainPackage.Escola;
 
 public class AlunoDAO {
-    
+
     public void createAlu(Aluno alu) {
 
         Connection con = ConnectionFactory.getConnection();
@@ -40,7 +40,7 @@ public class AlunoDAO {
         }
 
     }
-    
+
     public boolean checkAluno(String ra_alu, String senha_alu) {
 
         Connection con = ConnectionFactory.getConnection();
@@ -53,7 +53,7 @@ public class AlunoDAO {
             stmt.setString(1, ra_alu);
             stmt.setString(2, senha_alu);
             rs = stmt.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 check = true;
 
             }
@@ -64,8 +64,8 @@ public class AlunoDAO {
         }
         return check;
     }
-    
-    public String getNome (String ra_alu) {
+
+    public String getNome(String ra_alu) {
         String nome = null;
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
@@ -75,15 +75,41 @@ public class AlunoDAO {
             stmt = con.prepareStatement("SELECT NOME_ALU FROM ALUNO WHERE RA_ALU = ?");
             stmt.setString(1, ra_alu);
             rs = stmt.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 nome = rs.getString(1);
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
         return nome;
+    }
+
+    public int getEscId(String ra_alu) {
+        int idEsc = 0;
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            stmt = con.prepareStatement("SELECT ALUNO.ID_ESC\n"
+                    + "FROM ALUNO\n"
+                    + "LEFT JOIN ESCOLA_INI\n"
+                    + "ON ALUNO.ID_ESC = ESCOLA_INI.ID_ESC\n"
+                    + "WHERE RA_ALU = ?");
+            stmt.setString(1, ra_alu);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                idEsc = rs.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return idEsc;
     }
 }
