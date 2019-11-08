@@ -5,15 +5,14 @@
  */
 package framesPackage;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import connectionsPackage.AlunoDAO;
 
 /**
  *
  * @author Will
  */
 public class FrameLogin extends javax.swing.JFrame {
-
+    public static String ra;
     /**
      * Creates new form LoginTela
      */
@@ -33,9 +32,9 @@ public class FrameLogin extends javax.swing.JFrame {
         jSlider1 = new javax.swing.JSlider();
         jPanel1 = new javax.swing.JPanel();
         acessarBtn = new javax.swing.JButton();
-        loginTxt = new javax.swing.JTextField();
-        senhaTxt = new javax.swing.JTextField();
+        tfLogin = new javax.swing.JTextField();
         btnCadastrar = new javax.swing.JButton();
+        tfSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela de Login");
@@ -43,6 +42,11 @@ public class FrameLogin extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
 
         acessarBtn.setText("Acessar");
+        acessarBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                acessarBtnMouseClicked(evt);
+            }
+        });
 
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -62,23 +66,22 @@ public class FrameLogin extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(loginTxt)
-                        .addComponent(senhaTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tfLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(acessarBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCadastrar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnCadastrar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(tfSenha))
                 .addContainerGap(164, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addComponent(loginTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(senhaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
                 .addComponent(acessarBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCadastrar)
@@ -112,6 +115,16 @@ public class FrameLogin extends javax.swing.JFrame {
         tl1.setLocationRelativeTo(null);
         FrameLogin.this.dispose();
     }//GEN-LAST:event_btnCadastrarMouseClicked
+
+    private void acessarBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acessarBtnMouseClicked
+        AlunoDAO alunoDAO = new AlunoDAO();
+        if (alunoDAO.checkAluno(tfLogin.getText(), tfSenha.getText())) {
+            FrameMenu tl1 = new FrameMenu(tfLogin.getText());
+            tl1.setVisible(true);
+            tl1.setLocationRelativeTo(null);
+            FrameLogin.this.dispose();
+        }
+    }//GEN-LAST:event_acessarBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -156,7 +169,7 @@ public class FrameLogin extends javax.swing.JFrame {
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSlider jSlider1;
-    private javax.swing.JTextField loginTxt;
-    private javax.swing.JTextField senhaTxt;
+    private javax.swing.JTextField tfLogin;
+    private javax.swing.JPasswordField tfSenha;
     // End of variables declaration//GEN-END:variables
 }

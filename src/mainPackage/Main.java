@@ -31,13 +31,9 @@ public class Main extends ReadSheet {
 //        
 //        escolaDAO.create(escola);
 //FRAME DE RANKING
-        FrameRanking fr = new FrameRanking();
-        fr.setLocationRelativeTo(null);
-        fr.setVisible(true);
-        fr.setResizable(false);
-        FrameCadastro frc = new FrameCadastro();
-        frc.setLocationRelativeTo(null);
-        frc.setVisible(true);
+        FrameLogin frl = new FrameLogin();
+        frl.setLocationRelativeTo(null);
+        frl.setVisible(true);
     }
 
 }

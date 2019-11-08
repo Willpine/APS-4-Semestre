@@ -7,9 +7,6 @@ import connectionsPackage.EscolaDAO;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-
-//API do iterator, que contar� cada linha e c�lula nos arquivos excel
-import java.util.Iterator;
 import javax.swing.JTable;
 
 //imports das APIs para manipular os arquivos Wxcel
@@ -17,14 +14,11 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
 
 import java.io.InputStream;
-import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.openxml4j.opc.PackageAccess;
 
 public abstract class ReadSheet extends javax.swing.JFrame {
 
     public static void readTableMedio(JTable jTableMedio) throws IOException {
         FileInputStream file = new FileInputStream(new File("./resources/IDEB/IDEB/Dados/Por Escolas/divulgacao_ensino_medio-escolas-2017.xlsx"));
-        //FileInputStream file = new FileInputStream(new File("./resources/IDEB/IDEB/Dados/Por Escolas/divulgacao_anos_finais-escolas-2017.xlsx"));
         XSSFWorkbook workbook = new XSSFWorkbook(file);
         XSSFSheet sheet = workbook.getSheetAt(0);
         Cell cell;

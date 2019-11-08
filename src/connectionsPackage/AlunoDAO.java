@@ -25,7 +25,7 @@ public class AlunoDAO {
 
             stmt.setString(1, alu.getRA_ALU());
             stmt.setString(2, alu.getNOME_ALU());
-            stmt.setString(3, alu.getNOME_ALU());
+            stmt.setString(3, alu.getANO_ALU());
             stmt.setString(4, alu.getSENHA_ALU());
             stmt.setInt(5, alu.getID_ESC());
 
@@ -41,34 +41,49 @@ public class AlunoDAO {
 
     }
     
-    public List<Aluno> readAlu() {
+    public boolean checkAluno(String ra_alu, String senha_alu) {
 
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<Aluno> alunos = new ArrayList();
+        boolean check = false;
 
         try {
-            stmt = con.prepareStatement("RA_ALU,NOME_ALU,NOME_ESC,ANO_ALU\n"
-                    + "FROM ALUNO\n"
-                    + "LEFT JOIN ESCOLA_INI\n"
-                    + "ON ALUNO.ID_ESC = ESCOLA_INI.ID_ESC\n"
-                    + "ORDER BY NOME_ALU DESC;");
+            stmt = con.prepareStatement("SELECT * FROM ALUNO WHERE RA_ALU = ? AND SENHA_ALU = ?");
+            stmt.setString(1, ra_alu);
+            stmt.setString(2, senha_alu);
             rs = stmt.executeQuery();
-            while (rs.next()) {
-                Aluno aluno = new Aluno();
-                aluno.setRA_ALU(rs.getString("RA_ALU"));
-                aluno.setNOME_ALU(rs.getString("NOME_ALU"));
-                aluno.setNOME_ESC(rs.getString("NOME_ESC"));
-                aluno.setANO_ALU(rs.getString("ANO_ALU"));
+            if(rs.next()){
+                check = true;
 
-                alunos.add(aluno);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(EscolaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return alunos;
+        return check;
+    }
+    
+    public String getNome (String ra_alu) {
+        String nome = null;
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            stmt = con.prepareStatement("SELECT NOME_ALU FROM ALUNO WHERE RA_ALU = ?");
+            stmt.setString(1, ra_alu);
+            rs = stmt.executeQuery();
+            if(rs.next()){
+                nome = rs.getString(1);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return nome;
     }
 }

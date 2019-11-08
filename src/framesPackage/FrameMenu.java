@@ -5,17 +5,26 @@
  */
 package framesPackage;
 
+import connectionsPackage.AlunoDAO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Will
  */
 public class FrameMenu extends javax.swing.JFrame {
-
+    public static String ra,nome;
     /**
      * Creates new form FrameMenu
      */
-    public FrameMenu() {
+    public FrameMenu(String ra) {
         initComponents();
+        this.ra = ra;
+        AlunoDAO alunoDAO = new AlunoDAO();
+        nome = alunoDAO.getNome(ra);
+        labelNome.setText("Olá " + nome);
     }
 
     /**
@@ -28,64 +37,67 @@ public class FrameMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         frameMenu = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        btnRanking = new javax.swing.JButton();
+        btnSugestao = new javax.swing.JButton();
+        labelNome = new javax.swing.JLabel();
+        btnSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu");
 
         frameMenu.setBackground(new java.awt.Color(204, 255, 255));
 
-        jButton1.setText("Ranking de escolas");
+        btnRanking.setText("Ranking de escolas");
+        btnRanking.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnRankingMousePressed(evt);
+            }
+        });
 
-        jButton2.setText("Ranking de alunos");
+        btnSugestao.setText("Dê uma sugestão");
 
-        jButton3.setText("Médias");
+        labelNome.setForeground(new java.awt.Color(0, 0, 255));
+        labelNome.setText("/nome do aluno");
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel1.setText("/nome do aluno");
-
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Sair");
+        btnSair.setText("Sair");
+        btnSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSairMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout frameMenuLayout = new javax.swing.GroupLayout(frameMenu);
         frameMenu.setLayout(frameMenuLayout);
         frameMenuLayout.setHorizontalGroup(
             frameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(frameMenuLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, frameMenuLayout.createSequentialGroup()
                 .addContainerGap(128, Short.MAX_VALUE)
                 .addGroup(frameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, frameMenuLayout.createSequentialGroup()
                         .addGroup(frameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnRanking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSugestao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(131, 131, 131))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, frameMenuLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(75, 75, 75))))
+                        .addComponent(labelNome)
+                        .addGap(156, 156, 156))))
             .addGroup(frameMenuLayout.createSequentialGroup()
-                .addGap(186, 186, 186)
-                .addComponent(jLabel2)
+                .addGap(157, 157, 157)
+                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         frameMenuLayout.setVerticalGroup(
             frameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(frameMenuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(labelNome)
                 .addGap(60, 60, 60)
-                .addComponent(jButton1)
+                .addComponent(btnRanking)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addGap(32, 32, 32)
-                .addComponent(jLabel2)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addComponent(btnSugestao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addComponent(btnSair)
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -102,47 +114,37 @@ public class FrameMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseClicked
+        FrameLogin frl = new FrameLogin();
+        frl.setLocationRelativeTo(null);
+        frl.setVisible(true);
+        FrameMenu.this.dispose();
+    }//GEN-LAST:event_btnSairMouseClicked
+
+    private void btnRankingMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRankingMousePressed
+        FrameRanking frk;
+        try {
+            frk = new FrameRanking(ra);
+            frk.setLocationRelativeTo(null);
+            frk.setVisible(true);
+            FrameMenu.this.dispose();
+
+        } catch (Exception ex) {
+            Logger.getLogger(FrameMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btnRankingMousePressed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrameMenu().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRanking;
+    private javax.swing.JButton btnSair;
+    private javax.swing.JButton btnSugestao;
     private javax.swing.JPanel frameMenu;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel labelNome;
     // End of variables declaration//GEN-END:variables
 }
